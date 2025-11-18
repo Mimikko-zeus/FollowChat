@@ -927,8 +927,7 @@ const zoomPercent = computed(() => Math.round(zoom.value * 100))
         <template v-if="conversations.length">
           <ul class="root-sidebar__list">
             <li v-for="conversation in conversations" :key="conversation.id">
-              <button
-                type="button"
+              <div
                 class="root-sidebar__item"
                 :class="{ active: conversation.id === activeConversationId }"
                 @click="selectConversation(conversation.id)"
@@ -944,7 +943,7 @@ const zoomPercent = computed(() => Math.round(zoom.value * 100))
                 >
                   ×
                 </button>
-              </button>
+              </div>
             </li>
           </ul>
         </template>

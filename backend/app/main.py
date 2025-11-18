@@ -133,8 +133,6 @@ def is_model_related_question(content: str) -> bool:
     ]
     # 检测判断性问题
     judgment_patterns = [
-        r"你是.*吗\?*$", r"你是.*吗？", r"你是.*？", r"你是.*\?",
-        r"是不是.*", r"是否.*", r"能否.*", r"会不会.*"
     ]
     
     # 检查关键词

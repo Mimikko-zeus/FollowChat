@@ -247,6 +247,11 @@ def update_conversation(conversation_id: int, title: Optional[str] = None) -> Co
 
 
 def delete_conversation(conversation_id: int) -> None:
+    """Delete a conversation and all its messages.
+    
+    All messages in the conversation will be automatically deleted
+    due to the FOREIGN KEY CASCADE constraint.
+    """
     with get_connection() as conn:
         conn.execute("DELETE FROM conversations WHERE id = ?", (conversation_id,))
 
@@ -370,8 +375,32 @@ def update_message(
 
 
 def delete_message(message_id: int) -> None:
+    """Delete a message and all its descendants recursively."""
     with get_connection() as conn:
-        conn.execute("DELETE FROM messages WHERE id = ?", (message_id,))
+        # Collect all message IDs to delete (including the message itself and all descendants)
+        ids_to_delete = [message_id]
+        to_process = [message_id]
+        
+        # Recursively find all descendant message IDs
+        while to_process:
+            current_id = to_process.pop()
+            children = conn.execute(
+                "SELECT id FROM messages WHERE parent_id = ?",
+                (current_id,),
+            ).fetchall()
+            for child_row in children:
+                child_id = child_row["id"]
+                if child_id not in ids_to_delete:
+                    ids_to_delete.append(child_id)
+                    to_process.append(child_id)
+        
+        # Delete all messages in one operation
+        if ids_to_delete:
+            placeholders = ",".join("?" * len(ids_to_delete))
+            conn.execute(
+                f"DELETE FROM messages WHERE id IN ({placeholders})",
+                tuple(ids_to_delete),
+            )
 
 
 def upsert_config(
