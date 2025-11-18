@@ -8,7 +8,7 @@
 
 如果您发现了 bug 或有功能建议，请：
 
-1. 检查 [Issues](https://github.com/your-username/FollowChat/issues) 中是否已有相关问题
+1. 检查 [Issues](https://github.com/Mimikko-zeus/FollowChat/issues) 中是否已有相关问题
 2. 如果没有，请创建新的 Issue，并包含：
    - 清晰的问题描述
    - 复现步骤（如果是 bug）
@@ -27,6 +27,8 @@
    git clone https://github.com/your-username/FollowChat.git
    cd FollowChat
    ```
+   
+   注意：将 `your-username` 替换为您自己的 GitHub 用户名。
 
 3. **创建分支**
    ```bash
