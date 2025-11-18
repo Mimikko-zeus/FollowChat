@@ -67,11 +67,9 @@ chmod +x deploy.sh
 #### 1. 克隆项目
 
 ```bash
-git clone https://github.com/your-username/FollowChat.git
+git clone https://github.com/Mimikko-zeus/FollowChat.git
 cd FollowChat
 ```
-
-> 注意：请将 `your-username` 替换为您的 GitHub 用户名或组织名
 
 #### 2. 配置环境变量
 
